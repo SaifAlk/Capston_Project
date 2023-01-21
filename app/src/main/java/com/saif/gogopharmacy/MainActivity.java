@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
+        // Delay 4 sec before moving to the next page
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

@@ -12,4 +12,6 @@
     <color name="primary_200">#4894B5</color>
     <color name="secondary_500">#605F5F</color>
     <color name="third_700">#B4DCEB</color>
+
+    <color name="ic_launcher_background">#FCFFFD</color>
 </resources>
