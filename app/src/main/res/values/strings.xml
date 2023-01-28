@@ -6,4 +6,11 @@
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="btn_txt_login">LogIn</string>
+    <string name="ContentDescription_img">Img</string>
+    <string name="full_name">Full Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="country">Country</string>
+    <string name="state">State</string>
+    <string name="city">City</string>
+    <string name="complete_address">Complete Address</string>
 </resources>
