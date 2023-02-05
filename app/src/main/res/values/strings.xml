@@ -13,4 +13,6 @@
     <string name="state">State</string>
     <string name="city">City</string>
     <string name="complete_address">Complete Address</string>
+    <string name="shop_name">Shop Name</string>
+    <string name="deliveryfee">Delivery Fee</string>
 </resources>
