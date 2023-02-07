@@ -7,7 +7,6 @@
     android:padding="10dp"
     tools:context=".RegisterPharmacy">
 
-
     <ImageButton
         android:id="@+id/btn_Back"
         android:layout_width="50dp"
@@ -25,8 +24,8 @@
         <RelativeLayout
             android:id="@+id/rl_1"
             android:layout_width="match_parent"
-            android:padding="5dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="5dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/ci_UserImage"
@@ -70,6 +69,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:hint="@string/shop_name">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -88,7 +88,9 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/deliveryfee">
+                    android:layout_marginTop="5dp"
+                    android:hint="@string/deliveryfee"
+                    app:counterMaxLength="2">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edt_DeliveryFee"
@@ -97,7 +99,8 @@
                         android:drawableStart="@drawable/ic_delivery"
                         android:drawablePadding="5dp"
                         android:drawableTint="@color/primary_200"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:maxLength="2" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -106,7 +109,9 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/phone_number">
+                    android:layout_marginTop="5dp"
+                    android:hint="@string/phone_number"
+                    app:counterMaxLength="10">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edt_Phone"
@@ -115,7 +120,8 @@
                         android:drawableStart="@drawable/ic_phone"
                         android:drawablePadding="5dp"
                         android:drawableTint="@color/primary_200"
-                        android:inputType="phone" />
+                        android:inputType="phone"
+                        android:maxLength="10" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,6 +130,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:hint="@string/hint_email">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -141,6 +148,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:hint="@string/hint_password"
                     app:endIconMode="password_toggle"
                     app:endIconTint="@color/third_700">
@@ -149,6 +157,7 @@
                         android:id="@+id/edt_Password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:drawableStart="@drawable/ic_password"
                         android:drawablePadding="5dp"
                         android:drawableTint="@color/primary_200"
