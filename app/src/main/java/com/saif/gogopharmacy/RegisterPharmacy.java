@@ -597,9 +597,7 @@ public class RegisterPharmacy extends AppCompatActivity implements LocationListe
                     ShowLongMessage(e.getMessage());
                 }
             });
-        }
-        else
-        {
+        } else {
             // handel date with Pharmacy class
             Pharmacy pharmacy = new Pharmacy(UserId, full_name, shop_name,
                     delivery_fee, phone, email, city, complete_address,
@@ -616,8 +614,7 @@ public class RegisterPharmacy extends AppCompatActivity implements LocationListe
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
-                        public void onFailure(@NonNull Exception e)
-                        {
+                        public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
                             ShowShortMessage("Register Failure, Try again !");
                         }
