@@ -33,6 +33,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.GeoQuery;
+import com.firebase.geofire.GeoQueryDataEventListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -48,8 +52,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -144,6 +151,7 @@ public class RegisterPharmacy extends AppCompatActivity implements LocationListe
 
         CheckLocationPermission();
 
+
     }
 
     public void onBackClick(View view) {
@@ -165,7 +173,6 @@ public class RegisterPharmacy extends AppCompatActivity implements LocationListe
             ActivityCompat.requestPermissions(this, LocationFinePermission, LOCATION_FINE_REQUEST_CODE);
         }
     }
-
 
     @SuppressLint("MissingPermission")
     private boolean detectLocation() {
@@ -212,7 +219,8 @@ public class RegisterPharmacy extends AppCompatActivity implements LocationListe
     }
 
     @Override
-    public void onLocationChanged(@NonNull Location location) {
+    public void onLocationChanged(@NonNull Location location)
+    {
         // clear map
         map.clear();
         // get the latitude and longitude for the location
@@ -234,6 +242,9 @@ public class RegisterPharmacy extends AppCompatActivity implements LocationListe
 
 
         getAddress();
+        // remove the update location
+        locationManager.removeUpdates(this);
+
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(@NonNull LatLng latLng) {
@@ -271,12 +282,12 @@ public class RegisterPharmacy extends AppCompatActivity implements LocationListe
         } catch (AbstractMethodError e) {
             ShowLongMessage("Location Disable");
             map.clear();
-//            City.getEditText().setError("");
-//            CompleteAddress.getEditText().setError("");
-//            City.getEditText().setText("");
-//            CompleteAddress.getEditText().setText("");
-//            latitude = 0.0;
-//            longitude = 0.0;
+            City.getEditText().setError("");
+            CompleteAddress.getEditText().setError("");
+            City.getEditText().setText("");
+            CompleteAddress.getEditText().setText("");
+            latitude = 0.0;
+            longitude = 0.0;
             map.getUiSettings().setZoomControlsEnabled(false);
             map.setOnMapClickListener(null);
 
@@ -482,15 +493,9 @@ public class RegisterPharmacy extends AppCompatActivity implements LocationListe
             return false;
         } else if (city.isEmpty() && complete_address.isEmpty()) {
             ShowLongMessage("Click GPS icon to detect your location, make sure internet and location are enabled");
-//            CompleteAddress.getEditText().setError("");
-//            City.getEditText().setError("");
             return false;
-        } else {
-            CompleteAddress.getEditText().setError(null);
-            City.getEditText().setError(null);
-            return true;
         }
-
+        return true;
     }
 
     public void onRegisterClick(View view) {
@@ -510,7 +515,6 @@ public class RegisterPharmacy extends AppCompatActivity implements LocationListe
                         @Override
                         public void onSuccess(AuthResult authResult) {
                             savePharmacyDataOnFirebase();
-
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -529,7 +533,7 @@ public class RegisterPharmacy extends AppCompatActivity implements LocationListe
         // show this message
         progressDialog.setMessage("Saving Account Information");
         progressDialog.setCancelable(false);
-        // user if from firebase
+        // user id from firebase
         String UserId = firebaseAuth.getUid();
         // return current time in milliseconds
         Long date = System.currentTimeMillis();
@@ -539,7 +543,6 @@ public class RegisterPharmacy extends AppCompatActivity implements LocationListe
         String delivery_fee = DeliveryFee.getEditText().getText().toString().trim();
         String phone = Phone.getEditText().getText().toString().trim();
         String email = Email.getEditText().getText().toString().trim();
-        String password = Password.getEditText().getText().toString().trim();
         String city = City.getEditText().getText().toString().trim();
         String complete_address = CompleteAddress.getEditText().getText().toString().trim();
         boolean online = false;
@@ -548,6 +551,10 @@ public class RegisterPharmacy extends AppCompatActivity implements LocationListe
 
         // path of the image
         String filePath = "profile_images/" + UserId;
+
+        GeoFire geoFire = new GeoFire(databaseReference.child("User").child(UserId));
+        GeoLocation geoLocation = new GeoLocation(latitude,longitude);
+
 
         // check if the user upload image
         if (imageUri != null) {
@@ -558,16 +565,20 @@ public class RegisterPharmacy extends AppCompatActivity implements LocationListe
                     taskSnapshot.getStorage().getDownloadUrl()
                             .addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
-                                public void onSuccess(Uri uri) {
+                                public void onSuccess(Uri uri)
+                                {
                                     // handel date with Pharmacy class
                                     Pharmacy pharmacy = new Pharmacy(UserId, full_name, shop_name,
                                             delivery_fee, phone, email, city, complete_address,
-                                            latitude, longitude, uri.toString(), online, account_type,
+                                            uri.toString(), online, account_type,
                                             account_state, date);
                                     databaseReference.child("User").child(UserId)
                                             .setValue(pharmacy).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
-                                                public void onSuccess(Void unused) {
+                                                public void onSuccess(Void unused)
+                                                {
+
+                                                    geoFire.setLocation("location", geoLocation);
                                                     progressDialog.dismiss();
                                                     ShowShortMessage("Register Successfully");
                                                     startActivity(new Intent(RegisterPharmacy.this, LogIn.class));
@@ -601,15 +612,18 @@ public class RegisterPharmacy extends AppCompatActivity implements LocationListe
             // handel date with Pharmacy class
             Pharmacy pharmacy = new Pharmacy(UserId, full_name, shop_name,
                     delivery_fee, phone, email, city, complete_address,
-                    latitude, longitude, "", online, account_type,
+                    null, online, account_type,
                     account_state, date);
+
             databaseReference.child("User").child(UserId).setValue(pharmacy)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
-                        public void onSuccess(Void unused) {
+                        public void onSuccess(Void unused)
+                        {
+                            geoFire.setLocation("location", geoLocation);
                             progressDialog.dismiss();
                             ShowShortMessage("Register Successfully");
-                            startActivity(new Intent(RegisterPharmacy.this, LogIn.class));
+                            startActivity(new Intent(RegisterPharmacy.this, PharmacyHomePage.class));
                             finish();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -621,7 +635,6 @@ public class RegisterPharmacy extends AppCompatActivity implements LocationListe
                     });
         }
     }
-
 
     private void ShowShortMessage(String Message) {
         // Get the message from outside, then Crate the toast

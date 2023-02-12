@@ -13,6 +13,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private static int splash_screen = 4000;
     private  ImageView logo_Image;
     private Animation logo_anim;
-
+    private FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,4 +48,5 @@ public class MainActivity extends AppCompatActivity {
         logo_anim = AnimationUtils.loadAnimation(this, R.anim.logo_anim);
         logo_Image.startAnimation(logo_anim);
     }
+
 }

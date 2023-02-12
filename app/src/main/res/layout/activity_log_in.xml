@@ -29,9 +29,9 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/Input_Email"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:hint="@string/hint_email">
 
@@ -45,11 +45,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/Input_Password"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="6dp"
+            android:layout_height="wrap_content"
             android:hint="@string/hint_password"
+            android:layout_marginTop="5dp"
             app:endIconMode="password_toggle"
             app:endIconTint="@color/third_700">
 
@@ -79,7 +79,7 @@
             android:onClick="SignUpClick"
             android:text="@string/new_user_sign_up"
             android:textColor="@color/secondary_500"
-            android:textSize="16sp"/>
+            android:textSize="14sp"/>
 
     </LinearLayout>
 
@@ -90,11 +90,13 @@
         android:background="@drawable/ic_wave">
 
         <ImageView
+            android:id="@+id/image_sty"
             android:layout_width="400dp"
             android:layout_height="350dp"
             android:layout_centerInParent="true"
             android:contentDescription="@string/ContentDescription_img"
-            android:src="@drawable/p1"/>
+            android:src="@drawable/p1" />
+
     </RelativeLayout>
 
 

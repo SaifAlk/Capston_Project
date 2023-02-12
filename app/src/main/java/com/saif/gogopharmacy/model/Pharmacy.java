@@ -12,8 +12,6 @@ public class Pharmacy
     private String email;
     private String city;
     private String complete_address;
-    private double latitude;
-    private double longitude;
     private String profile_image;
     private boolean online;
     private String account_type;
@@ -23,7 +21,7 @@ public class Pharmacy
     public Pharmacy() {
     }
 
-    public Pharmacy(String userId, String full_name, String shop_name, String delivery_fee, String phone_number, String email, String city, String complete_address, double latitude, double longitude, String profile_image, boolean online, String account_type, String account_state, Long time_millis) {
+    public Pharmacy(String userId, String full_name, String shop_name, String delivery_fee, String phone_number, String email, String city, String complete_address, String profile_image, boolean online, String account_type, String account_state, Long time_millis) {
         this.userId = userId;
         this.full_name = full_name;
         this.shop_name = shop_name;
@@ -32,8 +30,6 @@ public class Pharmacy
         this.email = email;
         this.city = city;
         this.complete_address = complete_address;
-        this.latitude = latitude;
-        this.longitude = longitude;
         this.profile_image = profile_image;
         this.online = online;
         this.account_type = account_type;
@@ -104,22 +100,6 @@ public class Pharmacy
 
     public void setComplete_address(String complete_address) {
         this.complete_address = complete_address;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
     }
 
     public String getProfile_image() {

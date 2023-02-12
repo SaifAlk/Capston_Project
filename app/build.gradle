@@ -53,6 +53,11 @@ dependencies {
     // google map
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
 
+    // geofire
+    implementation 'com.firebase:geofire-android:3.2.0'
+
+    implementation "com.airbnb.android:lottie:3.4.0"
+
 
 
 }
