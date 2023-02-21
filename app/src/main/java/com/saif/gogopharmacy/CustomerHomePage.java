@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.os.Handler;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -17,9 +20,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.saif.gogopharmacy.configuration.ToastMessage;
 import com.saif.gogopharmacy.model.Customer;
-import com.saif.gogopharmacy.model.Pharmacy;
 
-public class PharmacyHomePage extends AppCompatActivity {
+public class CustomerHomePage extends AppCompatActivity {
 
     // UI reference
     private TextView Name;
@@ -32,7 +34,7 @@ public class PharmacyHomePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pharmacy_home_page);
+        setContentView(R.layout.activity_customer_home_page);
 
         // initiate firebase auth
         firebaseAuth = FirebaseAuth.getInstance();
@@ -50,7 +52,7 @@ public class PharmacyHomePage extends AppCompatActivity {
         if (User != null) {
             getDate();
         } else {
-            startActivity(new Intent(PharmacyHomePage.this, LogIn.class));
+            startActivity(new Intent(CustomerHomePage.this, LogIn.class));
         }
     }
 
@@ -63,31 +65,25 @@ public class PharmacyHomePage extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            Pharmacy pharmacy = snapshot.getValue(Pharmacy.class);
-                            Name.setText("Welcome " + pharmacy.getFull_name().toUpperCase());
-                        }
-                        else
-                        {
+                            Customer customer = snapshot.getValue(Customer.class);
+                            Name.setText("Welcome " + customer.getFull_name());
+                        } else {
                             new ToastMessage()
                                     .ShowShortMessage
                                             ("Data Not Exists",
-                                                    PharmacyHomePage.this);
+                                                    CustomerHomePage.this);
                         }
+
                     }
+
                     @Override
-                    public void onCancelled(@NonNull DatabaseError error)
-                    {
+                    public void onCancelled(@NonNull DatabaseError error) {
                         new ToastMessage()
                                 .ShowShortMessage
                                         (error.getMessage(),
-                                                PharmacyHomePage.this);
+                                                CustomerHomePage.this);
                     }
                 });
     }
 
-    public void onAddProduct(View view)
-    {
-        startActivity(new Intent(PharmacyHomePage.this,PharmacyAddProduct.class));
-
-    }
 }

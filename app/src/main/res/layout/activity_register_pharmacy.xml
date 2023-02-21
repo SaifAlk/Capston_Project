@@ -89,7 +89,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:hint="@string/deliveryfee"
+                    android:hint="@string/delivery_fee"
                     app:counterMaxLength="2">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -221,8 +221,9 @@
                 <Button
                     android:id="@+id/btn_Register"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="55dp"
                     android:layout_marginTop="6dp"
+                    app:cornerRadius="10dp"
                     android:onClick="onRegisterClick"
                     android:text="Register" />
 

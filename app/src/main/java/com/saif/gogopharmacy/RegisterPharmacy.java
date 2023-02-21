@@ -623,7 +623,7 @@ public class RegisterPharmacy extends AppCompatActivity implements LocationListe
                             geoFire.setLocation("location", geoLocation);
                             progressDialog.dismiss();
                             ShowShortMessage("Register Successfully");
-                            startActivity(new Intent(RegisterPharmacy.this, PharmacyHomePage.class));
+                            startActivity(new Intent(RegisterPharmacy.this, LogIn.class));
                             finish();
                         }
                     }).addOnFailureListener(new OnFailureListener() {

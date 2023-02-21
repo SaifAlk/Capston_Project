@@ -7,7 +7,6 @@
     android:padding="10dp"
     tools:context=".RegisterCustomer">
 
-
     <ImageButton
         android:id="@+id/btn_Back"
         android:layout_width="50dp"
@@ -16,15 +15,6 @@
         android:contentDescription="@string/ContentDescription_img"
         android:onClick="onBackClick"
         android:src="@drawable/ic_arrow_back" />
-
-    <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:background="@color/white"
-        android:contentDescription="@string/ContentDescription_img"
-        android:onClick="onGetCurrentLocationClick"
-        android:src="@drawable/ic_my_location" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ci_UserImage"
@@ -42,14 +32,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ci_UserImage"
         android:orientation="vertical"
-        android:padding="5dp">
+        android:padding="10dp">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txl_FullName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:hint="@string/full_name">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -68,6 +58,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:counterMaxLength="10"
             android:hint="@string/phone_number">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -76,6 +68,7 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_phone"
                 android:drawablePadding="5dp"
+                android:maxLength="10"
                 android:drawableTint="@color/primary_200"
                 android:inputType="phone" />
 
@@ -86,6 +79,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:hint="@string/hint_email">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -104,6 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_password"
+            android:layout_marginTop="15dp"
             app:endIconMode="password_toggle"
             app:endIconTint="@color/third_700">
 
@@ -118,81 +113,13 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
-            android:id="@+id/linear_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:baselineAligned="true"
-            android:orientation="horizontal">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txl_Country"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_weight="@integer/material_motion_duration_short_1"
-                android:hint="@string/country">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_Country"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableStart="@drawable/ic_location"
-                    android:drawablePadding="5dp"
-                    android:drawableTint="@color/primary_200"
-                    android:inputType="textPostalAddress" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txl_State"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="2dp"
-                android:layout_weight="@integer/material_motion_duration_short_1"
-                android:hint="@string/state">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_State"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_location"
-                    android:drawablePadding="5dp"
-                    android:drawableTint="@color/primary_200"
-                    android:inputType="textPostalAddress" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txl_City"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_weight="@integer/material_motion_duration_short_1"
-                android:hint="@string/city">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_City"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_location"
-                    android:drawablePadding="5dp"
-                    android:drawableTint="@color/primary_200"
-                    android:inputType="textPostalAddress" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txl_CompleteAddress"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="@integer/material_motion_duration_short_1"
+            android:layout_marginTop="15dp"
             android:hint="@string/complete_address">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -202,17 +129,18 @@
                 android:drawableStart="@drawable/ic_location"
                 android:drawablePadding="5dp"
                 android:drawableTint="@color/primary_200"
-                android:inputType="textPostalAddress" />
+                android:inputType="textPostalAddress|textMultiLine" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btn_Register"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="6dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="8dp"
             android:onClick="onRegisterClick"
-            android:text="Register" />
+            android:text="Register"
+            app:cornerRadius="10dp" />
 
     </LinearLayout>
 
