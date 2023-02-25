@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="1dp"
+    app:contentPadding="8dp">
+
+    <RelativeLayout
+        android:id="@+id/rl_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_product_card"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/medicine" />
+
+        <TextView
+            android:id="@+id/tv_product_name_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/img_product_card"
+            android:fontFamily="@font/almarai_bold"
+            android:text="Product Name"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_product_price_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_product_name_card"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@id/img_product_card"
+            android:fontFamily="@font/almarai_bold"
+            android:text="10 AED"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_product_price_after_discount_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/almarai_bold"
+            android:layout_toRightOf="@id/tv_product_price_card"
+            android:layout_below="@id/tv_product_name_card"
+            android:gravity="right"
+            android:layout_marginLeft="8dp"
+            android:text="10 AED"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_product_discount_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#4CAF50"
+            android:fontFamily="@font/almarai_bold"
+            android:layout_below="@id/tv_product_price_card"
+            android:layout_toRightOf="@id/img_product_card"
+            android:gravity="right"
+            android:layout_marginLeft="8dp"
+            android:text="Discount 10%"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

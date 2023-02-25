@@ -30,7 +30,6 @@ public class LogIn extends AppCompatActivity
     private TextInputLayout Email;
     private TextInputLayout Password;
     private LottieAnimationView lottieAnimationView;
-    private ProgressDialog progressDialog;
 
     // Firebase reference
     private FirebaseAuth firebaseAuth;

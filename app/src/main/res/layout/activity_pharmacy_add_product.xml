@@ -25,7 +25,7 @@
         android:src="@drawable/medicine" />
 
     <Button
-        android:id="@+id/btn_add_image"
+        android:id="@+id/btn_add_product"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,9 +37,10 @@
         app:cornerRadius="10dp" />
 
     <ScrollView
+        android:id="@+id/sv_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btn_add_image">
+        android:layout_below="@id/btn_add_product">
 
         <LinearLayout
             android:id="@+id/linear_1"
@@ -186,7 +187,6 @@
                     android:inputType="numberDecimal" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

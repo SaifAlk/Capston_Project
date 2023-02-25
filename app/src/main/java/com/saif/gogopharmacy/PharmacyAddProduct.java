@@ -328,10 +328,17 @@ public class PharmacyAddProduct extends AppCompatActivity {
         // set the date in realtime database
         databaseReference.child("Product")
                 .child(userId).child(product_name)
-                .addValueEventListener(new ValueEventListener() {
+                .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (!snapshot.exists()) {
+                        if (snapshot.exists()) {
+
+                            progressDialog.dismiss();
+                            new ToastMessage().ShowShortMessage(
+                                    "Product " + product_name + " exists",
+                                    PharmacyAddProduct.this);
+                        } else {
+
                             if (imageUri != null) {
                                 storageReference.child(filePath).putFile(imageUri)
                                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -347,6 +354,12 @@ public class PharmacyAddProduct extends AppCompatActivity {
                                                                         final_price, uri.toString(), date);
                                                                 databaseReference.child("Product")
                                                                         .child(userId).child(product_name).setValue(product);
+
+                                                                // show toast message
+                                                                progressDialog.dismiss();
+                                                                new ToastMessage().ShowShortMessage("Product Added Successfully",
+                                                                        PharmacyAddProduct.this);
+                                                                formEmpty();
                                                             }
                                                         }).addOnFailureListener(new OnFailureListener() {
                                                             @Override
@@ -382,7 +395,9 @@ public class PharmacyAddProduct extends AppCompatActivity {
                                                 // stop dialog
                                                 progressDialog.dismiss();
                                                 // show toast message
-                                                new ToastMessage().ShowShortMessage("Product Added Successfully", PharmacyAddProduct.this);
+                                                new ToastMessage().ShowShortMessage("Product Added Successfully"
+                                                        , PharmacyAddProduct.this);
+                                                formEmpty();
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override
@@ -394,12 +409,6 @@ public class PharmacyAddProduct extends AppCompatActivity {
                                             }
                                         });
                             }
-
-                        } else {
-                            progressDialog.dismiss();
-                            new ToastMessage().ShowShortMessage(
-                                    "Product " + product_name + " exists",
-                                    PharmacyAddProduct.this);
                         }
                     }
 
@@ -411,6 +420,16 @@ public class PharmacyAddProduct extends AppCompatActivity {
                                 PharmacyAddProduct.this);
                     }
                 });
+    }
+
+    private void formEmpty() {
+        // get the user input
+        ProductName.getEditText().setText(null);
+        ProductDescription.getEditText().setText(null);
+        Category.setText(null);
+        ProductPrice.getEditText().setText(null);
+        DiscountPrice.getEditText().setText(null);
+        Discount.setChecked(false);
     }
 }
 

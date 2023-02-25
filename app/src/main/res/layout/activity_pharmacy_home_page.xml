@@ -4,30 +4,177 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PharmacyHomePage"
-    android:padding="20dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_cir_CustomerHomePage"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/profile"/>
-    <TextView
-        android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
+    tools:context=".PharmacyHomePage">
+
+    <RelativeLayout
+        android:id="@+id/rl_1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="pharmacy name"
-        android:fontFamily="@font/almarai_bold"
-        android:textSize="16sp"
-        android:layout_toRightOf="@id/img_cir_CustomerHomePage"
-        android:layout_marginLeft="5dp"/>
+        android:padding="15dp">
 
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/ic_add"
-        android:background="@null"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="5dp"
-        android:onClick="onAddProduct"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_cir_CustomerHomePage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/profile" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/img_cir_CustomerHomePage"
+            android:fontFamily="@font/almarai_bold"
+            android:text="pharmacy name"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+    <!--Tabs-->
+    <RelativeLayout
+        android:id="@+id/rl_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_1"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="-8dp"
+        android:padding="15dp">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_product"
+            style="@style/Widget.AppCompat.SearchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shap_03"
+            android:focusable="false"
+            app:iconifiedByDefault="false"
+            app:queryHint="Search Here..." />
+
+        <LinearLayout
+            android:id="@+id/linear_1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/search_product"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shap_01"
+            android:orientation="horizontal"
+            android:padding="1dp">
+
+            <TextView
+                android:id="@+id/tv_product"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/shap_02"
+                android:fontFamily="@font/almarai_bold"
+                android:gravity="center"
+                android:onClick="onProductClick"
+                android:text="Products"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_orders"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/almarai_bold"
+                android:gravity="center"
+                android:onClick="onOrderClick"
+                android:text="Orders"
+                android:textColor="@color/secondary_500" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <!--Products-->
+    <RelativeLayout
+        android:id="@+id/rl_3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_2"
+        android:layout_above="@id/Bottom_Nav"
+        android:visibility="visible">
+
+        <Button
+            android:id="@+id/btn_add_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onAddProduct"
+            android:text="Add Product"
+            android:textAllCaps="false"
+            android:layout_marginLeft="10dp"
+            app:cornerRadius="10dp" />
+
+        <ImageView
+            android:id="@+id/img_product"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:visibility="invisible"
+            android:layout_below="@id/btn_add_product"
+            android:layout_centerInParent="true"
+            android:src="@drawable/products" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_products"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_below="@id/btn_add_product"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/splash" />
+
+        <TextView
+            android:id="@+id/tv_no_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Products Found"
+            android:layout_centerInParent="true"
+            android:textSize="15sp"
+            android:fontFamily="@font/almarai_bold"/>
+
+    </RelativeLayout>
+
+    <!--Orders-->
+    <RelativeLayout
+        android:id="@+id/rl_4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/Bottom_Nav"
+        android:layout_below="@+id/rl_2"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/img_product_order"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/products" />
+
+
+    </RelativeLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/Bottom_Nav"
+        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:cornerRadius="10dp"
+        app:elevation="1dp"
+        app:menu="@menu/menu" />
+
+
+
 </RelativeLayout>

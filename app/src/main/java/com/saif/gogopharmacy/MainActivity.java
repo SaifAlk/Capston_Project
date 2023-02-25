@@ -54,8 +54,7 @@ public class MainActivity extends AppCompatActivity {
         logo_anim = AnimationUtils.loadAnimation(this, R.anim.logo_anim);
         logo_Image.startAnimation(logo_anim);
 
-        startActivity(new Intent(MainActivity.this, LogIn.class));
-        finish();
+        Handel();
     }
 
     private void CheckUserAuth() {
@@ -105,7 +104,8 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                CheckUserAuth();
+                startActivity(new Intent(MainActivity.this, LogIn.class));
+                finish();
             }
         }, splash_screen);
     }

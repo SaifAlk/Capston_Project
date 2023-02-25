@@ -13,6 +13,9 @@ public class Product
     private String image;
     private Long time_millis;
 
+    public Product() {
+    }
+
     public Product(String userId, String product_name, String product_description, String category, String price, String discount_price, String discount_total_percent, String final_price, String image, Long time_millis) {
         this.userId = userId;
         this.product_name = product_name;
