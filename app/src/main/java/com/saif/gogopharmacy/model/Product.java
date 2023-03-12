@@ -8,7 +8,7 @@ public class Product
     private String category;
     private String price;
     private String discount_price;
-    private String discount_total_percent;
+    private String Quantity;
     private String final_price;
     private String image;
     private Long time_millis;
@@ -16,14 +16,14 @@ public class Product
     public Product() {
     }
 
-    public Product(String userId, String product_name, String product_description, String category, String price, String discount_price, String discount_total_percent, String final_price, String image, Long time_millis) {
+    public Product(String userId, String product_name, String product_description, String category, String price, String discount_price, String Quantity, String final_price, String image, Long time_millis) {
         this.userId = userId;
         this.product_name = product_name;
         this.product_description = product_description;
         this.category = category;
         this.price = price;
         this.discount_price = discount_price;
-        this.discount_total_percent = discount_total_percent;
+        this.Quantity = Quantity;
         this.final_price = final_price;
         this.image = image;
         this.time_millis = time_millis;
@@ -77,12 +77,12 @@ public class Product
         this.discount_price = discount_price;
     }
 
-    public String getDiscount_total_percent() {
-        return discount_total_percent;
+    public String getQuantity() {
+        return Quantity;
     }
 
-    public void setDiscount_total_percent(String discount_total_percent) {
-        this.discount_total_percent = discount_total_percent;
+    public void setQuantity(String quantity) {
+        Quantity = quantity;
     }
 
     public String getFinal_price() {

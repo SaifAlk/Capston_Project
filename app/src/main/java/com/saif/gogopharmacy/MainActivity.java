@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,7 +29,7 @@ import com.saif.gogopharmacy.configuration.ToastMessage;
 public class MainActivity extends AppCompatActivity {
 
     // UI elements
-    private static int splash_screen = 4000;
+    private static int splash_screen = 400;
     private ImageView logo_Image;
     private Animation logo_anim;
 
@@ -54,26 +55,34 @@ public class MainActivity extends AppCompatActivity {
         logo_anim = AnimationUtils.loadAnimation(this, R.anim.logo_anim);
         logo_Image.startAnimation(logo_anim);
 
-        Handel();
+        // Delay 4 sec before moving to the next page
+       new Handler().postDelayed(new Runnable() {
+           @Override
+           public void run() {
+               CheckUserAuth();
+           }
+       },splash_screen);
+
     }
 
     private void CheckUserAuth() {
         // 1. Get the currentUser
         FirebaseUser user = firebaseAuth.getCurrentUser();
-
-        if (user != null) // if he login
+        if (user == null) // if he login
         {
-            // Call these Methods
-            checkUserType();
-        } else {
             // Open the LogIn page
             startActivity(new Intent(MainActivity.this, LogIn.class));
             finish();
+
+        } else {
+            // Call these Methods
+            checkUserType();
+
         }
     }
 
     private void checkUserType() {
-        reference.child("User").child(firebaseAuth.getUid()).child("online").setValue(true);
+
         reference.child("User").orderByChild("userId").equalTo(firebaseAuth.getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -89,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         new ToastMessage().ShowShortMessage(error.getMessage(), MainActivity.this);
@@ -97,22 +107,5 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private void Handel()
-    {
-        // Delay 4 sec before moving to the next page
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(MainActivity.this, LogIn.class));
-                finish();
-            }
-        }, splash_screen);
-    }
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        Handel();
 
-    }
 }

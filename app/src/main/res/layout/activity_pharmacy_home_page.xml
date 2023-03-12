@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".PharmacyHomePage">
 
     <RelativeLayout
@@ -14,7 +13,7 @@
         android:padding="15dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img_cir_CustomerHomePage"
+            android:id="@+id/img_cir_PharmacyHomePage"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/profile" />
@@ -25,10 +24,18 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/img_cir_CustomerHomePage"
+            android:layout_toRightOf="@id/img_cir_PharmacyHomePage"
             android:fontFamily="@font/almarai_bold"
             android:text="pharmacy name"
             android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:onClick="onLogOutClick"
+            android:text="log out" />
 
     </RelativeLayout>
 
@@ -39,8 +46,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/rl_1"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginTop="-8dp"
+        android:layout_marginRight="8dp"
         android:padding="15dp">
 
         <androidx.appcompat.widget.SearchView
@@ -64,7 +71,7 @@
             android:padding="1dp">
 
             <TextView
-                android:id="@+id/tv_product"
+                android:id="@+id/tv_pharmacys"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -96,53 +103,57 @@
         android:id="@+id/rl_3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/rl_2"
         android:layout_above="@id/Bottom_Nav"
+        android:layout_below="@+id/rl_2"
         android:visibility="visible">
 
         <Button
             android:id="@+id/btn_add_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
             android:onClick="onAddProduct"
             android:text="Add Product"
             android:textAllCaps="false"
-            android:layout_marginLeft="10dp"
             app:cornerRadius="10dp" />
 
         <ImageView
             android:id="@+id/img_product"
             android:layout_width="300dp"
             android:layout_height="300dp"
-            android:visibility="invisible"
             android:layout_below="@id/btn_add_product"
             android:layout_centerInParent="true"
-            android:src="@drawable/products" />
+            android:src="@drawable/products"
+            android:visibility="invisible" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_products"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:layout_below="@id/btn_add_product"/>
+            android:layout_below="@id/btn_add_product"
+            tools:listitem="@layout/rv_pharmacy_products"
+            android:padding="5dp" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/btn_add_product"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/splash" />
 
         <TextView
-            android:id="@+id/tv_no_date"
+            android:id="@+id/tv_no_date_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No Products Found"
             android:layout_centerInParent="true"
-            android:textSize="15sp"
-            android:fontFamily="@font/almarai_bold"/>
+            android:visibility="invisible"
+            android:fontFamily="@font/almarai_bold"
+            android:text="No Products Found"
+            android:textSize="15sp" />
 
     </RelativeLayout>
 
@@ -162,6 +173,22 @@
             android:layout_centerInParent="true"
             android:src="@drawable/products" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_orders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/rv_pharmacy_orders"
+            android:padding="5dp" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/splash" />
+
 
     </RelativeLayout>
 
@@ -174,7 +201,6 @@
         app:cornerRadius="10dp"
         app:elevation="1dp"
         app:menu="@menu/menu" />
-
 
 
 </RelativeLayout>

@@ -13,15 +13,16 @@ public class Pharmacy
     private String city;
     private String complete_address;
     private String profile_image;
-    private boolean online;
     private String account_type;
     private String account_state;
     private Long time_millis;
+    private double latitude;
+    private double longitude;
 
     public Pharmacy() {
     }
 
-    public Pharmacy(String userId, String full_name, String shop_name, String delivery_fee, String phone_number, String email, String city, String complete_address, String profile_image, boolean online, String account_type, String account_state, Long time_millis) {
+    public Pharmacy(String userId, String full_name, String shop_name, String delivery_fee, String phone_number, String email, String city, String complete_address, String profile_image, String account_type, String account_state, Long time_millis, double latitude, double longitude) {
         this.userId = userId;
         this.full_name = full_name;
         this.shop_name = shop_name;
@@ -31,10 +32,11 @@ public class Pharmacy
         this.city = city;
         this.complete_address = complete_address;
         this.profile_image = profile_image;
-        this.online = online;
         this.account_type = account_type;
         this.account_state = account_state;
         this.time_millis = time_millis;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getUserId() {
@@ -85,7 +87,6 @@ public class Pharmacy
         this.email = email;
     }
 
-
     public String getCity() {
         return city;
     }
@@ -110,14 +111,6 @@ public class Pharmacy
         this.profile_image = profile_image;
     }
 
-    public boolean isOnline() {
-        return online;
-    }
-
-    public void setOnline(boolean online) {
-        this.online = online;
-    }
-
     public String getAccount_type() {
         return account_type;
     }
@@ -140,5 +133,41 @@ public class Pharmacy
 
     public void setTime_millis(Long time_millis) {
         this.time_millis = time_millis;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    @Override
+    public String toString() {
+        return "Pharmacy{" +
+                "userId='" + userId + '\'' +
+                ", full_name='" + full_name + '\'' +
+                ", shop_name='" + shop_name + '\'' +
+                ", delivery_fee='" + delivery_fee + '\'' +
+                ", phone_number='" + phone_number + '\'' +
+                ", email='" + email + '\'' +
+                ", city='" + city + '\'' +
+                ", complete_address='" + complete_address + '\'' +
+                ", profile_image='" + profile_image + '\'' +
+                ", account_type='" + account_type + '\'' +
+                ", account_state='" + account_state + '\'' +
+                ", time_millis=" + time_millis +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                '}';
     }
 }

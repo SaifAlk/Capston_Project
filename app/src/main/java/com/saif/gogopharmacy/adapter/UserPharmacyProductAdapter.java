@@ -1,6 +1,8 @@
 package com.saif.gogopharmacy.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +13,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.saif.gogopharmacy.CustomerProductDetails;
+import com.saif.gogopharmacy.PharmacyDetails;
 import com.saif.gogopharmacy.R;
 import com.saif.gogopharmacy.model.Product;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class PharmacyProductAdapter extends RecyclerView.Adapter<PharmacyProductAdapter.ViewHolder> {
+public class UserPharmacyProductAdapter extends RecyclerView.Adapter<UserPharmacyProductAdapter.ViewHolder> {
 
     // reference for ArrayList and Context
     private ArrayList<Product> list;
@@ -25,14 +29,14 @@ public class PharmacyProductAdapter extends RecyclerView.Adapter<PharmacyProduct
 
     // constructor that accepts tow Attributes
     // List and Context
-    public PharmacyProductAdapter(ArrayList<Product> list, Context context) {
+    public UserPharmacyProductAdapter(ArrayList<Product> list, Context context) {
         this.list = list;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public PharmacyProductAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public UserPharmacyProductAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.rv_pharmacy_products, parent, false);
@@ -40,11 +44,11 @@ public class PharmacyProductAdapter extends RecyclerView.Adapter<PharmacyProduct
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PharmacyProductAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull UserPharmacyProductAdapter.ViewHolder holder, int position) {
         // Get the item from the list
         // and handled with transfer model
         Product product = list.get(position);
-        String user_id = product.getUserId();
+        String product_id = product.getUserId();
         String product_name = product.getProduct_name();
         String price = product.getPrice();
         String quantity = product.getQuantity();
@@ -67,6 +71,24 @@ public class PharmacyProductAdapter extends RecyclerView.Adapter<PharmacyProduct
         } catch (Exception e) {
             holder.product_image.setImageResource(R.drawable.medicine);
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(context, CustomerProductDetails.class);
+                intent.putExtra("product_id", product_id);
+                intent.putExtra("product_name", product_name);
+                context.startActivity(intent);
+
+                // store the pharmacy id in SharedPreferences
+                SharedPreferences preferences = context.getSharedPreferences("Pharmacy_Id",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.clear();
+                editor.putString("pharmacy_id",product_id);
+                editor.apply();
+            }
+        });
 
 
     }

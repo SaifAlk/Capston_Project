@@ -28,15 +28,9 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
@@ -49,7 +43,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.saif.gogopharmacy.configuration.ToastMessage;
 import com.saif.gogopharmacy.model.Customer;
-import com.saif.gogopharmacy.model.Pharmacy;
 
 import java.io.IOException;
 import java.util.List;
@@ -392,7 +385,7 @@ public class RegisterCustomer extends AppCompatActivity implements LocationListe
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-                            savePharmacyDataOnFirebase();
+                            saveCustomerDataOnFirebase();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -406,7 +399,8 @@ public class RegisterCustomer extends AppCompatActivity implements LocationListe
                     });
         }
     }
-    private void savePharmacyDataOnFirebase() {
+
+    private void saveCustomerDataOnFirebase() {
         // show this message
         progressDialog.setMessage("Saving Account Information");
         progressDialog.setCancelable(false);
@@ -427,7 +421,7 @@ public class RegisterCustomer extends AppCompatActivity implements LocationListe
 
         // location geofire
         GeoFire geoFire = new GeoFire(databaseReference.child("User").child(UserId));
-        GeoLocation geoLocation = new GeoLocation(latitude,longitude);
+        GeoLocation geoLocation = new GeoLocation(latitude, longitude);
 
 
         // check if the user upload image
@@ -439,8 +433,7 @@ public class RegisterCustomer extends AppCompatActivity implements LocationListe
                     taskSnapshot.getStorage().getDownloadUrl()
                             .addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
-                                public void onSuccess(Uri uri)
-                                {
+                                public void onSuccess(Uri uri) {
                                     // handel date with Pharmacy class
                                     Customer customer = new Customer(UserId, full_name,
                                             phone, email, complete_address,
@@ -448,13 +441,12 @@ public class RegisterCustomer extends AppCompatActivity implements LocationListe
                                     databaseReference.child("User").child(UserId)
                                             .setValue(customer).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
-                                                public void onSuccess(Void unused)
-                                                {
+                                                public void onSuccess(Void unused) {
 
                                                     geoFire.setLocation("location", geoLocation);
                                                     progressDialog.dismiss();
-                                                    new ToastMessage().ShowShortMessage("Register Successfully",RegisterCustomer.this);
-                                                    startActivity(new Intent(RegisterCustomer.this, CustomerHomePage.class));
+                                                    new ToastMessage().ShowShortMessage("Register Successfully", RegisterCustomer.this);
+                                                    startActivity(new Intent(RegisterCustomer.this,CustomerHomePage.class));
                                                     finish();
                                                 }
                                             }).addOnFailureListener(new OnFailureListener() {
@@ -471,7 +463,7 @@ public class RegisterCustomer extends AppCompatActivity implements LocationListe
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     progressDialog.dismiss();
-                                    new ToastMessage().ShowLongMessage(e.getMessage(),RegisterCustomer.this);
+                                    new ToastMessage().ShowLongMessage(e.getMessage(), RegisterCustomer.this);
 
                                 }
                             });
@@ -480,7 +472,7 @@ public class RegisterCustomer extends AppCompatActivity implements LocationListe
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     progressDialog.dismiss();
-                    new ToastMessage().ShowLongMessage(e.getMessage(),RegisterCustomer.this);
+                    new ToastMessage().ShowLongMessage(e.getMessage(), RegisterCustomer.this);
                 }
             });
         } else {
@@ -492,19 +484,19 @@ public class RegisterCustomer extends AppCompatActivity implements LocationListe
             databaseReference.child("User").child(UserId).setValue(customer)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
-                        public void onSuccess(Void unused)
-                        {
+                        public void onSuccess(Void unused) {
                             geoFire.setLocation("location", geoLocation);
                             progressDialog.dismiss();
-                            new ToastMessage().ShowShortMessage("Register Successfully",RegisterCustomer.this);
-                            startActivity(new Intent(RegisterCustomer.this, CustomerHomePage.class));
+                            new ToastMessage().ShowShortMessage("Register Successfully", RegisterCustomer.this);
+                            startActivity(new Intent(RegisterCustomer.this,CustomerHomePage.class));
                             finish();
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
-                            new ToastMessage().ShowShortMessage("Register Failure, Try again !",RegisterCustomer.this);
+                            new ToastMessage().ShowShortMessage("Register Failure, Try again !", RegisterCustomer.this);
                         }
                     });
         }

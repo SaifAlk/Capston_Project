@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".CustomerProductDetails">
+
+    <ImageButton
+        android:id="@+id/btn_Back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:contentDescription="@string/ContentDescription_img"
+        android:onClick="onBackClick"
+        android:src="@drawable/ic_arrow_back" />
+
+    <ImageView
+        android:id="@+id/img_product_customer"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/medicine"/>
+
+    <LinearLayout
+        android:id="@+id/ll_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_below="@id/img_product_customer"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_product_name_customer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name: "
+            android:fontFamily="@font/almarai_bold"
+            android:textSize="18sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tv_product_description_customer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description: "
+            android:fontFamily="@font/almarai_bold"
+            android:textSize="18sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tv_product_price_customer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Price: "
+            android:fontFamily="@font/almarai_bold"
+            android:textSize="18sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tv_product_final_price_customer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Price After Discount: "
+            android:fontFamily="@font/almarai_bold"
+            android:textSize="18sp"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/r1"
+        android:layout_width="match_parent"
+        android:layout_below="@id/ll_1"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_product_increase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:onClick="onIncreaseQty"
+            android:textAllCaps="false"
+            app:cornerRadius="10dp" />
+
+        <TextView
+            android:id="@+id/tv_product_qty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/btn_product_increase"
+
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="-3dp"
+            android:text="1"
+            android:fontFamily="@font/almarai_bold"
+            android:textSize="30sp"/>
+
+        <Button
+            android:id="@+id/btn_product_decrease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@id/tv_product_qty"
+            android:text="-"
+            android:onClick="onDecreaseQty"
+            android:textAllCaps="false"
+            app:cornerRadius="10dp" />
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/btn_add_to_cart"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/r1"
+        android:text="add product to cart"
+        android:onClick="onAddProductToCart"
+        app:cornerRadius="10dp" />
+
+</RelativeLayout>

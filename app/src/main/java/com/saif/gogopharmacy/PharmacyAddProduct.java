@@ -50,7 +50,7 @@ public class PharmacyAddProduct extends AppCompatActivity {
     private TextInputLayout ProductCategory;
     private TextInputLayout ProductPrice;
     private TextInputLayout DiscountPrice;
-    private TextInputLayout DiscountTotalPercent;
+    private TextInputLayout Quantity;
     private TextInputLayout FinalPrice;
     private Switch Discount;
     private ImageView imageView;
@@ -94,15 +94,14 @@ public class PharmacyAddProduct extends AppCompatActivity {
         ProductDescription = findViewById(R.id.txl_ProductDescription);
         ProductCategory = findViewById(R.id.txl_ProductCategory);
         ProductPrice = findViewById(R.id.txl_ProductPrice);
+        Quantity = findViewById(R.id.txl_Product_Qty);
         DiscountPrice = findViewById(R.id.txl_DiscountPrice);
-        DiscountTotalPercent = findViewById(R.id.txl_DiscountTotalPercent);
         FinalPrice = findViewById(R.id.txl_FinalPrice);
         Discount = findViewById(R.id.sw_Discount);
         imageView = findViewById(R.id.img_product);
 
         // disable
         DiscountPrice.setEnabled(false);
-        DiscountTotalPercent.setEnabled(false);
         FinalPrice.setEnabled(false);
 
 
@@ -186,9 +185,7 @@ public class PharmacyAddProduct extends AppCompatActivity {
                 if (s.length() > 0) {
                     try {
                         double_discount_price = Integer.valueOf(s.toString());
-                        total_discount = double_discount_price / 100;
-                        DiscountTotalPercent.getEditText().setText(String.valueOf(total_discount) + "%");
-                        calculateFinalPrice(total_discount);
+                        calculateFinalPrice(double_discount_price);
 
                     } catch (Exception e) {
                         Log.e("double_discount_price", e.getMessage());
@@ -207,7 +204,7 @@ public class PharmacyAddProduct extends AppCompatActivity {
         String product_price = ProductPrice.getEditText().getText().toString();
         try {
             double_product_price = Double.parseDouble(product_price);
-            total_final_price = double_product_price - double_product_price * total_discount;
+            total_final_price = double_product_price - total_discount;
             FinalPrice.getEditText().setText(String.valueOf(total_final_price));
 
         } catch (Exception e) {
@@ -244,7 +241,6 @@ public class PharmacyAddProduct extends AppCompatActivity {
                     DiscountPrice.setEnabled(true);
                 } else {
                     DiscountPrice.getEditText().setText("");
-                    DiscountTotalPercent.getEditText().setText("");
                     FinalPrice.getEditText().setText("");
                     DiscountPrice.setEnabled(false);
 
@@ -316,7 +312,7 @@ public class PharmacyAddProduct extends AppCompatActivity {
         String category = Category.getText().toString();
         String product_price = ProductPrice.getEditText().getText().toString().trim();
         String discount_price = DiscountPrice.getEditText().getText().toString().trim();
-        String discount_total_percent = DiscountTotalPercent.getEditText().getText().toString().trim();
+        String quantity = Quantity.getEditText().getText().toString().trim();
         String final_price = FinalPrice.getEditText().getText().toString().trim();
 
         // get user id
@@ -350,7 +346,7 @@ public class PharmacyAddProduct extends AppCompatActivity {
                                                             public void onSuccess(Uri uri) {
                                                                 // handel by product class
                                                                 Product product = new Product(userId, product_name, product_description,
-                                                                        category, product_price, discount_price, discount_total_percent,
+                                                                        category, product_price, discount_price, quantity,
                                                                         final_price, uri.toString(), date);
                                                                 databaseReference.child("Product")
                                                                         .child(userId).child(product_name).setValue(product);
@@ -385,7 +381,7 @@ public class PharmacyAddProduct extends AppCompatActivity {
                                 // handel by product class
                                 Product product = new Product(userId, product_name, product_description,
                                         category, product_price, discount_price,
-                                        discount_total_percent, final_price, "", date);
+                                        quantity, final_price, "", date);
                                 // set the date in realtime database
                                 databaseReference.child("Product")
                                         .child(userId).child(product_name).setValue(product).
@@ -427,6 +423,7 @@ public class PharmacyAddProduct extends AppCompatActivity {
         ProductName.getEditText().setText(null);
         ProductDescription.getEditText().setText(null);
         Category.setText(null);
+        Quantity.getEditText().setText(null);
         ProductPrice.getEditText().setText(null);
         DiscountPrice.getEditText().setText(null);
         Discount.setChecked(false);

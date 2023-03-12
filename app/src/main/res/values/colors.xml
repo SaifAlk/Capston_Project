@@ -14,4 +14,8 @@
     <color name="third_700">#B4DCEB</color>
 
     <color name="ic_launcher_background">#FCFFFD</color>
+
+
+    <color name="confirmed_color">#4CAF50</color>
+
 </resources>

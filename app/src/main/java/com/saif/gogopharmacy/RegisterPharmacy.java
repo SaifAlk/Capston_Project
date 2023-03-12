@@ -545,16 +545,11 @@ public class RegisterPharmacy extends AppCompatActivity implements LocationListe
         String email = Email.getEditText().getText().toString().trim();
         String city = City.getEditText().getText().toString().trim();
         String complete_address = CompleteAddress.getEditText().getText().toString().trim();
-        boolean online = false;
         String account_type = "pharmacy";
         String account_state = "not_active";
 
         // path of the image
         String filePath = "profile_images/" + UserId;
-
-        GeoFire geoFire = new GeoFire(databaseReference.child("User").child(UserId));
-        GeoLocation geoLocation = new GeoLocation(latitude,longitude);
-
 
         // check if the user upload image
         if (imageUri != null) {
@@ -570,18 +565,16 @@ public class RegisterPharmacy extends AppCompatActivity implements LocationListe
                                     // handel date with Pharmacy class
                                     Pharmacy pharmacy = new Pharmacy(UserId, full_name, shop_name,
                                             delivery_fee, phone, email, city, complete_address,
-                                            uri.toString(), online, account_type,
-                                            account_state, date);
+                                            uri.toString(), account_type,
+                                            account_state, date,latitude,longitude);
                                     databaseReference.child("User").child(UserId)
                                             .setValue(pharmacy).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused)
                                                 {
-
-                                                    geoFire.setLocation("location", geoLocation);
                                                     progressDialog.dismiss();
                                                     ShowShortMessage("Register Successfully");
-                                                    startActivity(new Intent(RegisterPharmacy.this, LogIn.class));
+                                                    startActivity(new Intent(RegisterPharmacy.this, PharmacyHomePage.class));
                                                     finish();
                                                 }
                                             }).addOnFailureListener(new OnFailureListener() {
@@ -610,20 +603,20 @@ public class RegisterPharmacy extends AppCompatActivity implements LocationListe
             });
         } else {
             // handel date with Pharmacy class
-            Pharmacy pharmacy = new Pharmacy(UserId, full_name, shop_name,
+            Pharmacy pharmacy2 = new Pharmacy(UserId, full_name, shop_name,
                     delivery_fee, phone, email, city, complete_address,
-                    null, online, account_type,
-                    account_state, date);
+                    "", account_type,
+                    account_state, date,latitude,longitude);
 
-            databaseReference.child("User").child(UserId).setValue(pharmacy)
+            databaseReference.child("User").child(UserId).setValue(pharmacy2)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused)
                         {
-                            geoFire.setLocation("location", geoLocation);
+
                             progressDialog.dismiss();
                             ShowShortMessage("Register Successfully");
-                            startActivity(new Intent(RegisterPharmacy.this, LogIn.class));
+                            startActivity(new Intent(RegisterPharmacy.this, PharmacyHomePage.class));
                             finish();
                         }
                     }).addOnFailureListener(new OnFailureListener() {

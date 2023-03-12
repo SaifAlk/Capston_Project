@@ -22,9 +22,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.saif.gogopharmacy.configuration.ToastMessage;
+import com.saif.gogopharmacy.model.Pharmacy;
 
-public class LogIn extends AppCompatActivity
-{
+public class LogIn extends AppCompatActivity {
 
     // UI elements reference
     private TextInputLayout Email;
@@ -35,6 +35,7 @@ public class LogIn extends AppCompatActivity
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference reference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,95 +53,75 @@ public class LogIn extends AppCompatActivity
         reference = firebaseDatabase.getReference();
     }
 
-    public void LogInClick(View view)
-    {
-        if(validateLogInInput())
-        {
+    public void LogInClick(View view) {
+        if (validateLogInInput()) {
             loginUser();
         }
     }
-    private void loginUser()
-    {
+
+    private void loginUser() {
         // get use input
         String email = Email.getEditText().getText().toString().trim();
         String password = Password.getEditText().getText().toString().trim();
         // show loading anim
         lottieAnimationView.setVisibility(View.VISIBLE);
         // sign in user
-        firebaseAuth.signInWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
-            public void onSuccess(AuthResult authResult)
-            {
-                makeMeOnline();
+            public void onSuccess(AuthResult authResult) {
+                //makeMeOnline();
+                checkUserType();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                new ToastMessage().ShowShortMessage("No User have such this email !!!",
+                        LogIn.this);
+                lottieAnimationView.setVisibility(View.INVISIBLE);
             }
         });
     }
-    private void makeMeOnline()
-    {
-        reference.child("User")
-                .child(firebaseAuth.getUid())
-                .child("online")
-                .setValue(true)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused)
-                    {
-                        checkUserType();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e)
-                    {
-                        new ToastMessage().ShowShortMessage(e.getMessage(),LogIn.this);
 
-                    }
-                });
-    }
-    private void checkUserType()
-    {
+
+    private void checkUserType() {
         reference.child("User").orderByChild("userId").equalTo(firebaseAuth.getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot)
-                    {
-                        for(DataSnapshot db: snapshot.getChildren())
-                        {
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot db : snapshot.getChildren()) {
                             String userType = db.child("account_type").getValue(String.class);
-                            if(userType.equals("customer"))
-                            {
+                            if (userType.equals("customer")) {
                                 startActivity(new Intent(LogIn.this, CustomerHomePage.class));
                                 finish();
-                            }
-                            else if (userType.equals("pharmacy"))
-                            {
+                            } else if (userType.equals("pharmacy")) {
                                 startActivity(new Intent(LogIn.this, PharmacyHomePage.class));
                                 finish();
+
                             }
+                            lottieAnimationView.setVisibility(View.INVISIBLE);
                         }
 
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError error)
-                    {
-                        new ToastMessage().ShowShortMessage(error.getMessage(),LogIn.this);
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        new ToastMessage().ShowShortMessage(error.getMessage(), LogIn.this);
+                        lottieAnimationView.setVisibility(View.INVISIBLE);
 
                     }
                 });
     }
-    private boolean validateLogInInput()
-    {
+
+    private boolean validateLogInInput() {
         // get user input
         String email = Email.getEditText().getText().toString().trim();
         String password = Password.getEditText().getText().toString().trim();
 
-        if(email.isEmpty())
-        {
+        if (email.isEmpty()) {
             Email.getEditText().setError("Email is required");
             return false;
         }
-        if(password.isEmpty())
-        {
+        if (password.isEmpty()) {
             Password.getEditText().setError("Password is required");
             Password.setEndIconVisible(false);
             return false;
@@ -148,11 +129,9 @@ public class LogIn extends AppCompatActivity
         return true;
     }
 
-    public void SignUpClick(View view)
-    {
+    public void SignUpClick(View view) {
         startActivity(new Intent(this, RegisterCustomer.class));
     }
-
 
 
 }

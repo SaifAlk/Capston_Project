@@ -4,23 +4,159 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CustomerHomePage"
-    android:padding="10dp">
+    tools:context=".CustomerHomePage">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_cir_CustomerHomePage"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/profile"/>
-
-    <TextView
-        android:id="@+id/tv_name"
+    <RelativeLayout
+        android:id="@+id/rl_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="customer name"
-        android:fontFamily="@font/almarai_bold"
-        android:textSize="16sp"
-        android:layout_toRightOf="@id/img_cir_CustomerHomePage"
-        android:layout_marginLeft="5dp"/>
+        android:padding="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_cir_PharmacyHomePage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/profile" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/img_cir_PharmacyHomePage"
+            android:fontFamily="@font/almarai_bold"
+            android:text="Name"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:onClick="onLogOutClick"
+            android:text="log out" />
+    </RelativeLayout>
+
+    <!--Tabs-->
+    <RelativeLayout
+        android:id="@+id/rl_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_1"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:padding="15dp">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_product"
+            style="@style/Widget.AppCompat.SearchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shap_03"
+            android:focusable="false"
+            android:padding="1dp"
+            app:queryHint="Search Here..." />
+
+        <LinearLayout
+            android:id="@+id/linear_1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/search_product"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shap_01"
+            android:orientation="horizontal"
+            android:padding="1dp">
+
+            <TextView
+                android:id="@+id/tv_pharmacys"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/shap_02"
+                android:fontFamily="@font/almarai_bold"
+                android:gravity="center"
+                android:onClick="onPharmacyClick"
+                android:text="Pharmacy"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_orders"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/almarai_bold"
+                android:gravity="center"
+                android:onClick="onOrderClick"
+                android:text="Orders"
+                android:textColor="@color/secondary_500" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <!--Pharmacy's-->
+    <RelativeLayout
+        android:id="@+id/rl_3_customer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_2"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/img_pharmacy"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/products"
+            android:visibility="invisible" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_pharmacy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/rv_show_pharmacy"
+            android:padding="5dp" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/splash" />
+
+        <TextView
+            android:id="@+id/tv_no_date_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/almarai_bold"
+            android:visibility="invisible"
+            android:text="No Products Found"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <!--Orders-->
+    <RelativeLayout
+        android:id="@+id/rl_4_customer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_2"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/img_product_order"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/products" />
+
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

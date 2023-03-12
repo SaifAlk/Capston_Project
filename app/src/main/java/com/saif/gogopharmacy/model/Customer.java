@@ -98,4 +98,19 @@ public class Customer
     public void setTime_millis(Long time_millis) {
         this.time_millis = time_millis;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "userId='" + userId + '\'' +
+                ", full_name='" + full_name + '\'' +
+                ", phone_number='" + phone_number + '\'' +
+                ", email='" + email + '\'' +
+                ", complete_address='" + complete_address + '\'' +
+                ", profile_image='" + profile_image + '\'' +
+                ", online=" + online +
+                ", account_type='" + account_type + '\'' +
+                ", time_millis=" + time_millis +
+                '}';
+    }
 }

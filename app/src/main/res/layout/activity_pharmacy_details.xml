@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PharmacyDetails">
+
+    <RelativeLayout
+        android:id="@+id/r1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:padding="10dp"
+        android:background="@color/primary_200">
+
+        <ImageButton
+            android:id="@+id/btn_Back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:contentDescription="@string/ContentDescription_img"
+            android:onClick="onBackClick"
+            android:src="@drawable/ic_arrow_back2" />
+
+        <ImageButton
+            android:id="@+id/btn_cart"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:layout_alignParentRight="true"
+            android:contentDescription="@string/ContentDescription_img"
+            android:onClick="onCartClick"
+            android:src="@drawable/ic_cart" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/btn_cart_count"-->
+<!--            android:layout_width="18dp"-->
+<!--            android:layout_height="18dp"-->
+<!--            android:layout_toLeftOf="@id/btn_cart"-->
+<!--            -->
+<!--            android:text="2"-->
+<!--            android:gravity="center"-->
+<!--            android:background="@drawable/cart_count" />-->
+
+    </RelativeLayout>
+    <!--Shop Details-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_pharmacy_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/r1"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="-30dp"
+        app:contentPadding="5dp">
+
+        <RelativeLayout
+            android:id="@+id/r2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RatingBar
+                android:id="@+id/rb_pharmacy_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_alignParentRight="true"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:rating="3.5"
+                android:progressTint="@color/primary_200"/>
+
+            <ImageView
+                android:id="@+id/img_pharmacy_details"
+                android:layout_width="100dp"
+                android:layout_height="150dp"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/medicine" />
+
+            <View
+                android:id="@+id/view_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/img_pharmacy_details"
+                android:background="@color/third_700" />
+
+            <LinearLayout
+                android:id="@+id/ll_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_1"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:fontFamily="@font/almarai_bold"
+                    android:gravity="center"
+                    android:text="city"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_delivery_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableEnd="@drawable/ic_delivery"
+                    android:drawableTint="@color/primary_200"
+                    android:fontFamily="@font/almarai_bold"
+                    android:gravity="center"
+                    android:text="Delivery Fee"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_pharmacy_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:drawableTint="@color/primary_200"
+                    android:fontFamily="@font/almarai_bold"
+                    android:gravity="center"
+                    android:text="05086867670"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_product"
+        style="@style/Widget.AppCompat.SearchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shap_03"
+        android:layout_below="@id/cv_pharmacy_details"
+        android:layout_margin="10dp"
+        android:focusable="false"
+        app:iconifiedByDefault="false"
+        app:queryHint="Search Here..." />
+    <!--Products-->
+    <RelativeLayout
+        android:id="@+id/r3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:padding="5dp"
+        android:layout_below="@id/search_product">
+
+        <ImageView
+            android:id="@+id/img_no_data"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/products"
+            android:visibility="invisible" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_products"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/splash" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_no_date_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/almarai_bold"
+        android:text="No Products Found"
+        android:textSize="15sp" />
+
+</RelativeLayout>
